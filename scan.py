@@ -14,6 +14,7 @@ report_dir = os.environ.get("COMPLIANCE_REPORTS_DIR", "reports")
 # for example 
 # COMPLIANCE_IMAGE_FULL_REF="docker.io/library/ubuntu:latest"
 image = os.environ.get("COMPLIANCE_IMAGE_FULL_REF", False)
+need_pull = os.environ.get("PULL_IMAGE", True)
 
 # Docker auth config for private repo
 auth_config = os.environ.get("DOCKER_AUTH_CONFIG", False)
@@ -107,9 +108,12 @@ def main(image):
         image = f"{image}:latest"
     image_short = ('_'.join((image.split("/")[-1]).split(":")[-2::]))
     print(f"{colorCyan}Image scanning started {image}{colorDefault}")        
-    # Loading image into podman     
-    print("1. Pulling the image")  
-    pull_image(image)
+    # Loading image into podman
+    if need_pull == "false":
+        print("1. Pulling the image")  
+        pull_image(image)
+    else:
+        print("1. Skip pulling the image")
     # Getting image manifest JSON manifest
     print("2. Getting the image manifest")
     data = get_manifest(image)

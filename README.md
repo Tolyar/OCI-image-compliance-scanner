@@ -27,6 +27,7 @@
 | ----------------------- | --------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
 | COMPLIANCE_REPORTS_DIR  | Директория с отчётами<br />По умолчанию "reports"   | Рекомендуется оставить по умолчанию                                                    |
 | COMPLIANCE_JSON_STDOUT  | Вывод JSON отчёта в STDOUT                                           | COMPLIANCE_JSON_STDOUT: "true"                                                                                         |
+| NEED_PULL               | Выполнять или нет pull образов<br /> По умолчанию True         | Установите NEED_PULL=false если образы уже находятся в podman. Например для сборочного pipeline CI/CD                        |
 | INFORMATIONAL_EXIT_CODE | EXIT CODE при макс. severity INFORMATIONAL<br />По умолчанию 0 | Задать exit code в зависимости от<br /> необходимого параметра security gate |
 | LOW_EXIT_CODE           | EXIT CODE при макс. severity LOW<br />По умолчанию 15          | Задать exit code в зависимости от<br />необходимого параметра security gate  |
 | MEDIUM_EXIT_CODE        | EXIT CODE при макс. severity MEDIUM<br />По умолчанию 14       | Задать exit code в зависимости от<br /> необходимого параметра security gate |
