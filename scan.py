@@ -9,6 +9,7 @@ from module.compilers import compilers_list
 
 # Directory for saving reports inside container
 report_dir = os.environ.get("COMPLIANCE_REPORTS_DIR", "reports")
+prune_report_dir = os.environ.get("PRUNE_REPORTS_DIR", True)
 
 # image full path for scan
 # for example 
@@ -65,8 +66,9 @@ def run_command(command, realtime_output):
 def create_dir(report_dir):
     try: 
         if os.path.exists(report_dir) and os.path.isdir(report_dir):
-           shutil.rmtree(report_dir)
-           os.makedirs(report_dir)
+           if prune_report_dir != "false":
+              shutil.rmtree(report_dir)
+              os.makedirs(report_dir)
         else: 
            os.makedirs(report_dir)
     except Exception as e: 
@@ -109,7 +111,7 @@ def main(image):
     image_short = ('_'.join((image.split("/")[-1]).split(":")[-2::]))
     print(f"{colorCyan}Image scanning started {image}{colorDefault}")        
     # Loading image into podman
-    if need_pull == "false":
+    if need_pull != "false":
         print("1. Pulling the image")  
         pull_image(image)
     else:
